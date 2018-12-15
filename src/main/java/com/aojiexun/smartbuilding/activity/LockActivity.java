@@ -106,7 +106,7 @@ import static com.aojiexun.smartbuilding.activity.BindFaceActivity.imageToBase64
 /**
  * Created by 30541 on 2018/3/12.
  */
-public class LockActivity extends BaseAppCompatActivity implements CameraSurfaceView.OnCameraListener, View.OnTouchListener, Camera.AutoFocusCallback, NewLockerSerialportUtil.onReadCardListener, FaceInController.FaceInControllerListener {
+public class LockActivity extends BaseAppCompatActivity implements CameraSurfaceView.OnCameraListener, View.OnTouchListener, Camera.AutoFocusCallback, FaceInController.FaceInControllerListener {
     public static final String ACTION_UPDATEUI = "com.link.cloud.dataTime";
     private static final String TAG = "LockActivity";
     private final static int MSG_SHOW_LOG = 0;
@@ -228,7 +228,7 @@ public class LockActivity extends BaseAppCompatActivity implements CameraSurface
     private CameraSurfaceView mSurfaceView;
     private CameraGLSurfaceView mGLSurfaceView;
 
-    public void save(){
+    public void save() {
         NotSuccess notSuccess = new NotSuccess();
         notSuccess.setIdCard(idCard);
         notSuccess.setImage(image);
@@ -243,6 +243,7 @@ public class LockActivity extends BaseAppCompatActivity implements CameraSurface
         });
         realm.close();
     }
+
     private Camera mCamera;
     private int mWidth, mHeight, mFormat;
     private long firstTime = 0;
@@ -305,7 +306,7 @@ public class LockActivity extends BaseAppCompatActivity implements CameraSurface
         mTts.startSpeaking("初始化成功", mTtsListener);
         realm = Realm.getDefaultInstance();
         faceInController = new FaceInController(this);
-        faceInController.getRfid("");
+        // faceInController.getRfid("");
         faceInController.getAllFace();
 
     }
@@ -377,17 +378,17 @@ public class LockActivity extends BaseAppCompatActivity implements CameraSurface
     public void onMainErrorCode(String msg, int errorCode) {
         cardFrid = null;
         card = null;
-        mTts.startSpeaking(msg,mTtsListener);
+        mTts.startSpeaking(msg, mTtsListener);
     }
 
     @Override
     public void onMainFail(Throwable e, boolean isNetWork) {
         cardFrid = null;
         card = null;
-        if(isNetWork){
-            mTts.startSpeaking("网络异常",mTtsListener);
-        }else {
-            mTts.startSpeaking("解析异常",mTtsListener);
+        if (isNetWork) {
+            mTts.startSpeaking("网络异常", mTtsListener);
+        } else {
+            mTts.startSpeaking("解析异常", mTtsListener);
         }
     }
 
@@ -426,10 +427,10 @@ public class LockActivity extends BaseAppCompatActivity implements CameraSurface
     public void reportSuccess(CardIDBean cardIDBean) {
         cardFrid = null;
         card = null;
-        Realm realm  = Realm.getDefaultInstance();
-        if(isReportNotSuccess){
+        Realm realm = Realm.getDefaultInstance();
+        if (isReportNotSuccess) {
             NotSuccess first = realm.where(NotSuccess.class).findFirst();
-            if(first!=null){
+            if (first != null) {
 
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
@@ -440,18 +441,20 @@ public class LockActivity extends BaseAppCompatActivity implements CameraSurface
             }
         }
         RealmResults<NotSuccess> all = realm.where(NotSuccess.class).findAll();
-            if(all.size()>0){
-                faceInController.reportNotSuccess(all.get(0).getIdCard(),all.get(0).getImage(),all.get(0).getTimeCreate());
-            }
+        if (all.size() > 0) {
+            faceInController.reportNotSuccess(all.get(0).getIdCard(), all.get(0).getImage(), all.get(0).getTimeCreate());
+        }
         realm.close();
     }
-    Boolean isReportNotSuccess =false;
+
+    Boolean isReportNotSuccess = false;
+
     @Override
     public void reportNotSuccessSuccess(CardIDBean cardIDBean) {
-        Realm realm  = Realm.getDefaultInstance();
+        Realm realm = Realm.getDefaultInstance();
         NotSuccess first = realm.where(NotSuccess.class).findFirst();
-        isReportNotSuccess =true;
-        if(first!=null){
+        isReportNotSuccess = true;
+        if (first != null) {
 
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
@@ -461,8 +464,8 @@ public class LockActivity extends BaseAppCompatActivity implements CameraSurface
             });
         }
         RealmResults<NotSuccess> all = realm.where(NotSuccess.class).findAll();
-        if(all.size()>0){
-            faceInController.report(all.get(0).getIdCard(),all.get(0).getImage(),all.get(0).getTimeCreate());
+        if (all.size() > 0) {
+            faceInController.report(all.get(0).getIdCard(), all.get(0).getImage(), all.get(0).getTimeCreate());
         }
         realm.close();
     }
@@ -479,38 +482,38 @@ public class LockActivity extends BaseAppCompatActivity implements CameraSurface
 
     }
 
-    @Override
-    public void dealSwingCard(String cardNum) {
-        android.util.Log.e("dealSwingCard: ", cardNum);
-        cardFrid = cardNum;
-        try {
-            String substring = cardNum.substring(cardNum.length() - 10, cardNum.length() - 4);
-            card = Integer.parseInt(substring, 16) + "";
-            if (card.length() == 7) {
-                card = "0" + card;
-            }
-            if (card.length() == 6) {
-                card = "00" + card;
-            }
-            if (card.length() == 5) {
-                card = "000" + card;
-            }
-            if (card.length() == 4) {
-                card = "0000" + card;
-            }
-            if (card.length() == 3) {
-                card = "00000" + card;
-            }
-            Log.e(TAG, "dealSwingCard: " + card);
-        } catch (Exception e) {
-
-        }
-    }
+//    @Override
+//    public void dealSwingCard(String cardNum) {
+//        android.util.Log.e("dealSwingCard: ", cardNum);
+//        cardFrid = cardNum;
+//        try {
+//            String substring = cardNum.substring(cardNum.length() - 10, cardNum.length() - 4);
+//            card = Integer.parseInt(substring, 16) + "";
+//            if (card.length() == 7) {
+//                card = "0" + card;
+//            }
+//            if (card.length() == 6) {
+//                card = "00" + card;
+//            }
+//            if (card.length() == 5) {
+//                card = "000" + card;
+//            }
+//            if (card.length() == 4) {
+//                card = "0000" + card;
+//            }
+//            if (card.length() == 3) {
+//                card = "00000" + card;
+//            }
+//            Log.e(TAG, "dealSwingCard: " + card);
+//        } catch (Exception e) {
+//
+//        }
+//    }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         mCameraID = Camera.CameraInfo.CAMERA_FACING_BACK;
-        NewLockerSerialportUtil_2.init(this, PATH, BAUDRATE, this);
+        // NewLockerSerialportUtil_2.init(this, PATH, BAUDRATE, this);
         mCameraRotate = 0;
         mCameraMirror = false;
         mWidth = 640;
@@ -723,10 +726,12 @@ public class LockActivity extends BaseAppCompatActivity implements CameraSurface
         result.clear();
         return rects;
     }
+
     @OnClick(R.id.bindface)
-    public void onClick(View view){
-        startActivity(new Intent(this,BindFaceActivity.class));
+    public void onClick(View view) {
+        startActivity(new Intent(this, BindFaceActivity.class));
     }
+
     @Override
     public void onBeforeRender(CameraFrameData data) {
 
@@ -761,7 +766,7 @@ public class LockActivity extends BaseAppCompatActivity implements CameraSurface
                 String faceUrl = intent.getStringExtra("FaceUrl");
                 String idcard = intent.getStringExtra("idCard");
                 faceInController.downloadFile(idcard, faceUrl);
-                faceInController.getRfid(idcard);
+                //faceInController.getRfid(idcard);
             }
 
 
@@ -822,40 +827,44 @@ public class LockActivity extends BaseAppCompatActivity implements CameraSurface
                         }
                     }
                     if (max > 0.65f) {
-                                Realm realm = Realm.getDefaultInstance();
-                        CardIDBean id_card = realm.where(CardIDBean.class).equalTo("id_card", name).findFirst();
+//                                Realm realm = Realm.getDefaultInstance();
+//                        CardIDBean id_card = realm.where(CardIDBean.class).equalTo("id_card", name).findFirst();
+//                        long secondTime = System.currentTimeMillis();
+//                        if (secondTime - firstTime > 2000) {
+//                            if(id_card!=null&&!id_card.getRfid_number().equals(card)){
+//                                Log.e(TAG, "loop: "+"身份证与卡号不匹配");
+//                                mTts.startSpeaking("身份证与卡号不匹配", mTtsListener);
+//                            }
+//                            if(id_card==null){
+//                                Log.e(TAG, "loop: "+"未查询到该人信息");
+//                                mTts.startSpeaking("未查询到该人信息", mTtsListener);
+//                            }
+//                            firstTime=secondTime;
+//                        }
+//                        if(id_card!=null&&!id_card.getRfid_number().equals(card)){
+//                            mImageNV21 = null;
+//                           return;
+//                        }
+//                        if(id_card==null){
+//                            mImageNV21 = null;
+//                            return;
+//                        }
                         long secondTime = System.currentTimeMillis();
                         if (secondTime - firstTime > 2000) {
-                            if(id_card!=null&&!id_card.getRfid_number().equals(card)){
-                                Log.e(TAG, "loop: "+"身份证与卡号不匹配");
-                                mTts.startSpeaking("身份证与卡号不匹配", mTtsListener);
-                            }
-                            if(id_card==null){
-                                Log.e(TAG, "loop: "+"未查询到该人信息");
-                                mTts.startSpeaking("未查询到该人信息", mTtsListener);
-                            }
-                            firstTime=secondTime;
+                            firstTime = secondTime;
+                            workHandler.sendEmptyMessage(101);
+                            saveJpg();
+                            long createTime = System.currentTimeMillis() + 8 * 60 * 60 * 1000;
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            Long time1 = new Long(createTime);
+                            String d = format.format(time1);
+                            idCard = name;
+                            timeCreate = d;
+                            image = imageToBase64(Environment.getExternalStorageDirectory() + "/faceIn.jpg");
+                            faceInController.report(name, image, timeCreate);
+                            isReportNotSuccess = false;
                         }
-                        if(id_card!=null&&!id_card.getRfid_number().equals(card)){
-                            mImageNV21 = null;
-                           return;
-                        }
-                        if(id_card==null){
-                            mImageNV21 = null;
-                            return;
-                        }
-                        workHandler.sendEmptyMessage(101);
-                        saveJpg();
 
-                        long createTime = System.currentTimeMillis()+8*60*60*1000;
-                        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        Long time1=new Long(createTime);
-                        String d = format.format(time1);
-                        idCard=name;
-                        timeCreate =d;
-                        image = imageToBase64(Environment.getExternalStorageDirectory() + "/faceIn.jpg");
-                        faceInController.report(name,image,timeCreate);
-                        isReportNotSuccess=false;
                     } else {
                         recindex = recindex + 1;
                         if (recindex == 3) {
