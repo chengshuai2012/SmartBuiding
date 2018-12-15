@@ -826,7 +826,7 @@ public class LockActivity extends BaseAppCompatActivity implements CameraSurface
 
                         }
                     }
-                    if (max > 0.65f) {
+                    if (max > 0.75f) {
 //                                Realm realm = Realm.getDefaultInstance();
 //                        CardIDBean id_card = realm.where(CardIDBean.class).equalTo("id_card", name).findFirst();
 //                        long secondTime = System.currentTimeMillis();
