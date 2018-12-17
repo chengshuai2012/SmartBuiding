@@ -78,8 +78,10 @@ public class FaceDB {
 					return true;
 				}}
 		} catch (FileNotFoundException e) {
+			Log.e(TAG, e.getMessage());
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
+			Log.e(TAG, e.getMessage());
 			e.printStackTrace();
 		}
 		return false;
