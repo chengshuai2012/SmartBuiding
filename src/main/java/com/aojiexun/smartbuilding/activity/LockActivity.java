@@ -853,15 +853,15 @@ public class LockActivity extends BaseAppCompatActivity implements CameraSurface
                         if (secondTime - firstTime > 2000) {
                             firstTime = secondTime;
                             workHandler.sendEmptyMessage(101);
-                            saveJpg();
+                            //saveJpg();
                             long createTime = System.currentTimeMillis() + 8 * 60 * 60 * 1000;
                             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             Long time1 = new Long(createTime);
                             String d = format.format(time1);
                             idCard = name;
                             timeCreate = d;
-                            image = imageToBase64(Environment.getExternalStorageDirectory() + "/faceIn.jpg");
-                            faceInController.report(name, image, timeCreate);
+                           // image = imageToBase64(Environment.getExternalStorageDirectory() + "/faceIn.jpg");
+                          //  faceInController.report(name, image, timeCreate);
                             isReportNotSuccess = false;
                         }
 
