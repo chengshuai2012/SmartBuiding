@@ -56,6 +56,7 @@ public class WelcomeActivity extends Activity {
         RequsetProjectId requsetProjectId = new RequsetProjectId();
         requsetProjectId.setMac_address(Utils.getMac().trim());
         textView2.setText("设备ID："+Utils.getMac().trim());
+        Log.e("onCreate: ", Utils.getMac().trim());
         HttpConfig.MAC = Utils.getMac().trim();
       RetrofitFactory.getInstence().API().getProjectId(requsetProjectId).compose(IOMainThread.composeIO2main()).subscribe(new BaseObserver<ProjectID>() {
 
