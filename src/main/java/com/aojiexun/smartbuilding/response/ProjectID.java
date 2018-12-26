@@ -18,8 +18,8 @@ public class ProjectID {
      * type : 商业建筑
      */
 
-    private int amount;
-    private int area;
+    private double amount;
+    private double area;
     private String function;
     private int id;
     private String name;
@@ -38,19 +38,19 @@ public class ProjectID {
     private String time;
     private String type;
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    public int getArea() {
+    public double getArea() {
         return area;
     }
 
-    public void setArea(int area) {
+    public void setArea(double area) {
         this.area = area;
     }
 

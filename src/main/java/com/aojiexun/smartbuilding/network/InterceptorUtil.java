@@ -34,7 +34,7 @@ public class InterceptorUtil {
                     Log.e("OKHttp-----", message);
                 }
             }
-        }).setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        }).setLevel(HttpLoggingInterceptor.Level.BODY);
     }
 
     public static Interceptor HeaderInterceptor(){
